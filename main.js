@@ -177,7 +177,7 @@ $(document).ready(function(){
 				hide = !hide;
 				context.fillStyle = "rgb(255,255,255)";
 				context.fillRect(0, 0, 720, 540);
-				animate();
+				window.requestAnimationFrame(animate);
 				break;
 			case 68:
 				if( player.score > 200000 ){
@@ -221,7 +221,6 @@ $(document).ready(function(){
 		intro.fullstory = new String("외계인과 싸워 지구를 지키자.");
 		
 		window.requestAnimationFrame(animate);
-		//animate();
 	};
 	function printAll( player, enemy, items, star, particle, key, img, context ){
 		sPrint( star, img, context );
