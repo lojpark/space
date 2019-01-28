@@ -5,6 +5,7 @@ $(document).ready(function(){
 	var canvasHeight = canvas.height();
 
 	var playAnimation = true, hide = false;
+	var lastTimestamp = 0, fps = 50, interval = 1000 / fps;
 
 	var key = new Object();
 	
@@ -219,7 +220,8 @@ $(document).ready(function(){
 		intro.story = new String("");
 		intro.fullstory = new String("외계인과 싸워 지구를 지키자.");
 		
-		animate();
+		window.requestAnimationFrame(animate);
+		//animate();
 	};
 	function printAll( player, enemy, items, star, particle, key, img, context ){
 		sPrint( star, img, context );
@@ -234,9 +236,12 @@ $(document).ready(function(){
 		pnPrint( player, img, context );
 	};
 
-	function animate(){
-		if( hide ) return;
-		var i;
+	function animate(timestamp){
+		if( hide || !playAnimation ) return;
+
+		window.requestAnimationFrame(animate);
+		if (timestamp - lastTimestamp < interval) return;
+    	lastTimestamp = timestamp;
 		
 		context.clearRect(0,0,canvasWidth,canvasHeight);
 		context.fillStyle = "rgb(255,255,255)";
@@ -375,10 +380,6 @@ $(document).ready(function(){
 				}
 			}
 		}
-		
-		if(playAnimation){
-			setTimeout(animate, 33);
-		};
 	};
 	
 	init();
